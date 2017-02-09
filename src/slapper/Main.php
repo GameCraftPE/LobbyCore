@@ -85,7 +85,7 @@ class Main extends PluginBase implements Listener {
         "Horse", "Donkey", "Mule", "SkeletonHorse",
         "ZombieHorse", "Witch", "Rabbit", "Stray",
         "Husk", "WitherSkeleton", "IronGolem", "Snowman",
-        "MagmaCube", "Squid"
+        "MagmaCube", "Squid", "Dragon", "Wither"
     ];
 
     const ENTITY_ALIASES = [
@@ -97,6 +97,7 @@ class Main extends PluginBase implements Listener {
         "FallingBlock" => "FallingSand",
         "FakeBlock" => "FallingSand",
         "VillagerGolem" => "IronGolem",
+        "EnderDragon" => "Dragon",
     ];
 
     public $hitSessions = [];
@@ -176,6 +177,8 @@ class Main extends PluginBase implements Listener {
         Entity::registerEntity(SlapperStray::class, true);
         Entity::registerEntity(SlapperHusk::class, true);
         Entity::registerEntity(SlapperWitherSkeleton::class, true);
+        Entity::registerEntity(SlapperWither::class, true);
+        Entity::registerEntity(SlapperDragon::class, true);
         Entity::registerEntity(SlapperFallingSand::class, true);
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
     }
