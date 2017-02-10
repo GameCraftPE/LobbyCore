@@ -67,6 +67,8 @@ use slapper\entities\SlapperStray;
 use slapper\entities\SlapperHusk;
 use slapper\entities\SlapperWitherSkeleton;
 use slapper\entities\SlapperRabbit;
+use slapper\entities\SlapperWither;
+use slapper\entities\SlapperDragon;
 use slapper\events\SlapperCreationEvent;
 use slapper\events\SlapperDeletionEvent;
 use slapper\events\SlapperHitEvent;
