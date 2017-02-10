@@ -27,6 +27,9 @@ use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\network\protocol\AddPlayerPacket;
 use pocketmine\network\protocol\MovePlayerPacket;
 use pocketmine\Player;
+use pocketmine\Server;
+use pocketmine\scheduler\PluginTask;
+use slapper\Task;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat;
 
@@ -149,6 +152,7 @@ class Main extends PluginBase implements Listener {
     ];
 
     public function onEnable() {
+        $this->getServer()->getScheduler()->scheduleRepeatingTask(new Task($this), 20);
         Entity::registerEntity(SlapperCreeper::class, true);
         Entity::registerEntity(SlapperBat::class, true);
         Entity::registerEntity(SlapperSheep::class, true);
@@ -194,8 +198,34 @@ class Main extends PluginBase implements Listener {
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
     }
     
+    public function onDamage(EntityDamageEvent $ev){
+        if ($ev->getEntity() instanceof Player) {
+            $p = $ev->getEntity();
+            if ($p->getLevel()->getFolderName() === "Lobby"){
+                $ev->setCancelled();
+            }
+    }
+        
+    public function onBreak(BlockBreakEvent $ev){
+        $ev->setCancelled();
+    }
+        
+    public function onPlace(BlockPlaceEvent $ev){
+        $ev->setCancelled();   
+    }
+        
     public function onPlayerMove(PlayerMoveEvent $ev){
         $player = $ev->getPlayer();
+        if ($player->getLevel()->getFolderName() === "Lobby"){
+          if($ev->getTo()->getFloorY() < 0){
+            $x = $this->pg->getServer()->getDefaultLevel()->getSafeSpawn()->getFloorX();
+            $y = $this->pg->getServer()->getDefaultLevel()->getSafeSpawn()->getFloorY();
+            $z = $this->pg->getServer()->getDefaultLevel()->getSafeSpawn()->getFloorZ();
+            $level = $this->pg->getServer()->getDefaultLevel();
+            $player->teleport(new Position($x, $y, $z, $level));
+            $player->setHealth($player->getHealth(20));
+          }
+        }
         $from = $ev->getFrom();
         $to = $ev->getTo();
         if($from->distance($to) < 0.1){
