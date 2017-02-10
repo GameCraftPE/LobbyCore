@@ -31,14 +31,17 @@ use slapper\entities\other\SlapperFallingSand;
 use slapper\entities\other\SlapperMinecart;
 use slapper\entities\other\SlapperPrimedTNT;
 use slapper\entities\SlapperBat;
+use slapper\entities\SlapperBear;
 use slapper\entities\SlapperBlaze;
 use slapper\entities\SlapperCaveSpider;
 use slapper\entities\SlapperChicken;
 use slapper\entities\SlapperCow;
 use slapper\entities\SlapperCreeper;
+use slapper\entities\SlapperCrystal;
 use slapper\entities\SlapperEnderman;
 use slapper\entities\SlapperEntity;
 use slapper\entities\SlapperGhast;
+use slapper\entities\SlapperGuardian;
 use slapper\entities\SlapperHuman;
 use slapper\entities\SlapperIronGolem;
 use slapper\entities\SlapperLavaSlime;
@@ -47,6 +50,7 @@ use slapper\entities\SlapperOcelot;
 use slapper\entities\SlapperPig;
 use slapper\entities\SlapperPigZombie;
 use slapper\entities\SlapperSheep;
+use slapper\entities\SlapperShulker;
 use slapper\entities\SlapperSilverfish;
 use slapper\entities\SlapperSkeleton;
 use slapper\entities\SlapperSlime;
@@ -87,7 +91,8 @@ class Main extends PluginBase implements Listener {
         "Horse", "Donkey", "Mule", "SkeletonHorse",
         "ZombieHorse", "Witch", "Rabbit", "Stray",
         "Husk", "WitherSkeleton", "IronGolem", "Snowman",
-        "MagmaCube", "Squid", "Dragon", "Wither"
+        "MagmaCube", "Squid", "Dragon", "Wither", 
+        "Bear", "Shulker", "Crystal", "Guardian"
     ];
 
     const ENTITY_ALIASES = [
