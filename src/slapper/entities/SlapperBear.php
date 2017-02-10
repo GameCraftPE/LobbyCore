@@ -2,7 +2,7 @@
 
 namespace slapper\entities;
 
-class SlapperWither extends SlapperEntity {
+class SlapperBear extends SlapperEntity {
 
     public $entityId = 28;
     
