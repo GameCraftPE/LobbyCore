@@ -276,24 +276,6 @@ class Main extends PluginBase implements Listener {
             }
             $player->dataPacket($pk);
         }
-        $player = $ev->getPlayer();
-        $block = $player->getLevel()->getBlock($player->floor()->subtract(0, 1));
-        if($block->getID() === 152){
-            switch($player->getDirection()) {
-                case 0:
-                    $player->knockBack($player, 0, 1, 0, 0.9);
-                    return true;
-                case 1:
-                    $player->knockBack($player, 0, 0, 1, 0.9);
-                    return true;
-                case 2:
-                    $player->knockBack($player, 0, -1, 0, 0.9);
-                    return true;
-                case 3:
-                    $player->knockBack($player, 0, 0, -1, 0.9);
-                    return true;
-            }
-        }
     }
 
 
