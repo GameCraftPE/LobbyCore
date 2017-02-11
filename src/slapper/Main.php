@@ -8,6 +8,8 @@ use pocketmine\command\ConsoleCommandSender;
 use pocketmine\entity\Entity;
 use pocketmine\event\player\PlayerMoveEvent;
 use pocketmine\math\Vector2;
+use pocketmine\event\block\BlockPlaceEvent;
+use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\entity\EntitySpawnEvent;
@@ -25,12 +27,13 @@ use pocketmine\nbt\tag\ShortTag;
 use pocketmine\nbt\tag\StringTag;
 use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\network\protocol\AddPlayerPacket;
-use pocketmine\network\protocol\MovePlayerPacket;
 use pocketmine\Player;
 use pocketmine\Server;
 use pocketmine\scheduler\PluginTask;
 use slapper\Task;
 use pocketmine\plugin\PluginBase;
+use pocketmine\level\Position;
+use pocketmine\level\Location;
 use pocketmine\utils\TextFormat;
 
 use slapper\entities\other\SlapperBoat;
@@ -98,7 +101,7 @@ class Main extends PluginBase implements Listener {
         "Horse", "Donkey", "Mule", "SkeletonHorse",
         "ZombieHorse", "Witch", "Rabbit", "Stray",
         "Husk", "WitherSkeleton", "IronGolem", "Snowman",
-        "MagmaCube", "Squid", "Dragon", "Wither", 
+        "MagmaCube", "Squid", "Dragon", "Wither",
         "Bear", "Shulker", "Crystal", "Guardian"
     ];
 
@@ -197,31 +200,32 @@ class Main extends PluginBase implements Listener {
         Entity::registerEntity(SlapperFallingSand::class, true);
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
     }
-    
+
     public function onDamage(EntityDamageEvent $ev){
         if ($ev->getEntity() instanceof Player) {
             $p = $ev->getEntity();
             if ($p->getLevel()->getFolderName() === "Lobby"){
                 $ev->setCancelled();
             }
+          }
     }
-        
+
     public function onBreak(BlockBreakEvent $ev){
         $ev->setCancelled();
     }
-        
+
     public function onPlace(BlockPlaceEvent $ev){
-        $ev->setCancelled();   
+        $ev->setCancelled();
     }
-        
+
     public function onPlayerMove(PlayerMoveEvent $ev){
         $player = $ev->getPlayer();
         if ($player->getLevel()->getFolderName() === "Lobby"){
           if($ev->getTo()->getFloorY() < 0){
-            $x = $this->pg->getServer()->getDefaultLevel()->getSafeSpawn()->getFloorX();
-            $y = $this->pg->getServer()->getDefaultLevel()->getSafeSpawn()->getFloorY();
-            $z = $this->pg->getServer()->getDefaultLevel()->getSafeSpawn()->getFloorZ();
-            $level = $this->pg->getServer()->getDefaultLevel();
+            $x = $this->getServer()->getDefaultLevel()->getSafeSpawn()->getFloorX();
+            $y = $this->getServer()->getDefaultLevel()->getSafeSpawn()->getFloorY();
+            $z = $this->getServer()->getDefaultLevel()->getSafeSpawn()->getFloorZ();
+            $level = $this->getServer()->getDefaultLevel();
             $player->teleport(new Position($x, $y, $z, $level));
             $player->setHealth($player->getHealth(20));
           }
@@ -231,7 +235,7 @@ class Main extends PluginBase implements Listener {
         if($from->distance($to) < 0.1){
             return;
         }
-        $maxDistance = $this->getConfig()->get("max-distance");
+        $maxDistance = "20";
         foreach($player->getLevel()->getNearbyEntities($player->getBoundingBox()->grow($maxDistance, $maxDistance, $maxDistance), $player) as $e){
             if($e instanceof Player){
                 continue;
@@ -271,6 +275,24 @@ class Main extends PluginBase implements Listener {
                 $pk->pitch = $pitch;
             }
             $player->dataPacket($pk);
+        }
+        $player = $ev->getPlayer();
+        $block = $player->getLevel()->getBlock($player->floor()->subtract(0, 1));
+        if($block->getID() === 152){
+            switch($player->getDirection()) {
+                case 0:
+                    $player->knockBack($player, 0, 1, 0, 0.9);
+                    return true;
+                case 1:
+                    $player->knockBack($player, 0, 0, 1, 0.9);
+                    return true;
+                case 2:
+                    $player->knockBack($player, 0, -1, 0, 0.9);
+                    return true;
+                case 3:
+                    $player->knockBack($player, 0, 0, -1, 0.9);
+                    return true;
+            }
         }
     }
 
