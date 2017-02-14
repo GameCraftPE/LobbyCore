@@ -14,6 +14,7 @@ use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\entity\EntitySpawnEvent;
 use pocketmine\network\protocol\MoveEntityPacket;
+use pocketmine\event\player\PlayerKickEvent;
 use pocketmine\network\protocol\MovePlayerPacket;
 use pocketmine\event\Listener;
 use pocketmine\event\server\DataPacketSendEvent;
