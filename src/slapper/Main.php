@@ -222,12 +222,7 @@ class Main extends PluginBase implements Listener {
         $player = $ev->getPlayer();
         if ($player->getLevel()->getFolderName() === "Lobby"){
           if($ev->getTo()->getFloorY() < 0){
-            $x = $this->getServer()->getDefaultLevel()->getSafeSpawn()->getFloorX();
-            $y = $this->getServer()->getDefaultLevel()->getSafeSpawn()->getFloorY();
-            $z = $this->getServer()->getDefaultLevel()->getSafeSpawn()->getFloorZ();
-            $level = $this->getServer()->getDefaultLevel();
-            $player->teleport(new Position($x, $y, $z, $level));
-            $player->setHealth($player->getHealth(20));
+            $player->setHealth($player->getHealth(0));
           }
         }
         $from = $ev->getFrom();
