@@ -217,6 +217,12 @@ class Main extends PluginBase implements Listener {
     public function onPlace(BlockPlaceEvent $ev){
         $ev->setCancelled();
     }
+    
+    public function onPlayerKick(PlayerKickEvent $event) {
+			if($event->getReason() === "The server is full! Vote to join when the server is full! www.gamecraftvote.tk")
+				$event->setCancelled(true);
+		    }
+    }
 
     public function onPlayerMove(PlayerMoveEvent $ev){
         $player = $ev->getPlayer();
