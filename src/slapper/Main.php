@@ -220,7 +220,7 @@ class Main extends PluginBase implements Listener {
     }
     
     public function onPlayerKick(PlayerKickEvent $event) {
-			if($event->getReason() === "The server is full! Vote to join when the server is full! www.gamecraftvote.tk")
+			if($event->getReason() === "The server is full! Vote to join when the server is full! www.gamecraftvote.tk"){
 				$event->setCancelled(true);
 		    }
     }
