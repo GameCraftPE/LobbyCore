@@ -30,6 +30,7 @@ use pocketmine\nbt\tag\ShortTag;
 use pocketmine\nbt\tag\StringTag;
 use pocketmine\network\protocol\AddEntityPacket;
 use pocketmine\network\protocol\AddPlayerPacket;
+use pocketmine\network\protocol\ContainerSetContentPacket;
 use pocketmine\Player;
 use pocketmine\Server;
 use pocketmine\scheduler\PluginTask;
