@@ -7,6 +7,7 @@ use pocketmine\command\CommandSender;
 use pocketmine\command\ConsoleCommandSender;
 use pocketmine\entity\Entity;
 use pocketmine\event\player\PlayerMoveEvent;
+use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\math\Vector2;
 use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\block\BlockBreakEvent;
@@ -203,7 +204,10 @@ class Main extends PluginBase implements Listener {
     }
 	
     public function onJoin(PlayerJoinEvent $ev){
-	    $this->getServer()->getOnlinePlayers()->hidePlayer($ev->getPlayer());
+	    foreach ($this->getServer()->getOnlinePlayers() as $dname) {
+	    	$dname->hidePlayer($ev->getPlayer());
+	    	$ev->getPlayer()->hidePlayer($dname);
+		}
     }	 
 	
     public function onDamage(EntityDamageEvent $ev){
