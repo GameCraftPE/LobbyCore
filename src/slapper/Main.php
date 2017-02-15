@@ -205,10 +205,26 @@ class Main extends PluginBase implements Listener {
     }
 	
     public function onJoin(PlayerJoinEvent $ev){
-	    foreach ($this->getServer()->getOnlinePlayers() as $dname) {
+	$ev->getPlayer()->teleport(new Position("189.754200", "64.500000", "5.631000"), "90", "9");
+	foreach ($this->getServer()->getOnlinePlayers() as $dname) {
+		if ($ev->getPlayer()->hasPermission("rank.diamond")){ 
+			$p->gamemode = Player::SPECTATOR;
+			$p->spawnToAll();
+			$pk = new SetPlayerGameTypePacket();
+			$pk->gamemode = Player::CREATIVE;
+			$p->dataPacket($pk);
+			$pk = new AdventureSettingsPacket();
+			$pk->flags = 207;
+			$pk->userPermission = 2;
+			$pk->globalPermission = 2;
+			$p->dataPacket($pk);
+			$pk = new ContainerSetContentPacket();
+			$pk->windowid = ContainerSetContentPacket::SPECIAL_CREATIVE;
+			$p->dataPacket($pk);
+		}
 	    	$dname->hidePlayer($ev->getPlayer());
 	    	$ev->getPlayer()->hidePlayer($dname);
-		}
+	}	    
     }	 
 	
     public function onDamage(EntityDamageEvent $ev){
