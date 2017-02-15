@@ -7,6 +7,7 @@ use pocketmine\command\CommandSender;
 use pocketmine\command\ConsoleCommandSender;
 use pocketmine\entity\Entity;
 use pocketmine\event\player\PlayerMoveEvent;
+use pocketmine\event\player\PlayerChatEvent;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\math\Vector2;
 use pocketmine\event\block\BlockPlaceEvent;
@@ -218,7 +219,11 @@ class Main extends PluginBase implements Listener {
             }
           }
     }
-
+    
+    public function onChat(PlayerChatEvent $event) {
+	     $event->setCancelled(true);
+	     $event->getPlayer()->sendMessage("§cThe Chat Is Disabled.");
+    }
     public function onBreak(BlockBreakEvent $ev){
         $ev->setCancelled();
     }
