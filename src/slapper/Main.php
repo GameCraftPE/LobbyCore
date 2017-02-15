@@ -201,7 +201,11 @@ class Main extends PluginBase implements Listener {
         Entity::registerEntity(SlapperFallingSand::class, true);
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
     }
-
+	
+    public function onJoin(PlayerJoinEvent $ev){
+	    $this->getServer()->getOnlinePlayers()->hidePlayer($ev->getPlayer());
+    }	 
+	
     public function onDamage(EntityDamageEvent $ev){
         if ($ev->getEntity() instanceof Player) {
             $p = $ev->getEntity();
@@ -220,9 +224,9 @@ class Main extends PluginBase implements Listener {
     }
     
     public function onPlayerKick(PlayerKickEvent $event) {
-			if($event->getReason() === "The server is full! Vote to join when the server is full! www.gamecraftvote.tk"){
-				$event->setCancelled(true);
-		    }
+    	if($event->getReason() === "The server is full! Vote to join when the server is full! www.gamecraftvote.tk"){
+		$event->setCancelled(true);
+ 	}
     }
 
     public function onPlayerMove(PlayerMoveEvent $ev){
