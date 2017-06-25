@@ -239,7 +239,7 @@ class Main extends PluginBase implements Listener {
         if($from->distance($to) < 0.1){
             return;
         }
-        $maxDistance = "20"
+        $maxDistance = "20";
         foreach($player->getLevel()->getNearbyEntities($player->getBoundingBox()->grow($maxDistance, $maxDistance, $maxDistance), $player) as $e){
             if($e instanceof Player){
                 continue;
