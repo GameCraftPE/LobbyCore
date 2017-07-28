@@ -4,13 +4,13 @@ namespace slapper;
 
 use pocketmine\{Server, scheduler\PluginTask, plugin\PluginBase, event\Listener, utils\TextFormat as TF};
 
-class Task extends PluginTask{
+class Task extends PluginTask {
 	public function __construct($plugin){
 		$this->plugin = $plugin;
 		parent::__construct($plugin);
 	}
 
-	public function onRun($tick){
+	public function onRun(int $tick) {
 		$pl = $this->plugin->getServer()->getOnlinePlayers();
 		foreach($pl as $p){
 			if(!$p->getInventory()->getItemInHand()->hasEnchantments()){
