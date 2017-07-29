@@ -77,6 +77,7 @@ use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\network\mcpe\protocol\AddEntityPacket;
 use pocketmine\network\mcpe\protocol\AddPlayerPacket;
 use pocketmine\network\mcpe\protocol\ContainerSetContentPacket;
+use pocketmine\network\mcpe\protocol\types\ContainerIds;
 use pocketmine\Server;
 use pocketmine\scheduler\PluginTask;
 use pocketmine\level\Position;
@@ -197,7 +198,7 @@ class Main extends PluginBase implements Listener {
 				$ev->getPlayer()->setGamemode("1");
 				$pk = new ContainerSetContentPacket();
 				$pk->targetEid = $ev->getPlayer()->getId();
-				$pk->windowid = ContainerSetContentPacket::SPECIAL_CREATIVE;
+				$pk->windowid = ContainerIds::CREATIVE;;
 				$ev->getPlayer()->dataPacket($pk);
 			}
 			$dname->hidePlayer($ev->getPlayer());
@@ -224,12 +225,6 @@ class Main extends PluginBase implements Listener {
 
 	public function onPlace(BlockPlaceEvent $ev){
 		$ev->setCancelled();
-	}
-
-	public function onPlayerKick(PlayerKickEvent $event) {
-		if($event->getReason() === "The server is full! Vote to join when the server is full! www.gamecraftvote.tk"){
-			$event->setCancelled(true);
-		}
 	}
 
 	public function onPlayerMove(PlayerMoveEvent $ev){
