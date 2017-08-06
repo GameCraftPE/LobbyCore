@@ -198,7 +198,7 @@ class Main extends PluginBase implements Listener {
 				$ev->getPlayer()->setGamemode("1");
 				$pk = new ContainerSetContentPacket();
 				$pk->targetEid = $ev->getPlayer()->getId();
-				$pk->windowid = ContainerIds::CREATIVE;;
+				$pk->windowid = ContainerIds::CREATIVE;
 				$ev->getPlayer()->dataPacket($pk);
 			}
 			$dname->hidePlayer($ev->getPlayer());
@@ -220,11 +220,15 @@ class Main extends PluginBase implements Listener {
 		$event->getPlayer()->sendMessage("§cThe Chat Is Disabled.");
 	}
 	public function onBreak(BlockBreakEvent $ev){
-		$ev->setCancelled();
+		if(!$event->getPlayer()->isOp()){
+			$ev->setCancelled();
+		}
 	}
 
 	public function onPlace(BlockPlaceEvent $ev){
-		$ev->setCancelled();
+		if(!$event->getPlayer()->isOp()){
+			$ev->setCancelled();
+		}
 	}
 
 	public function onPlayerMove(PlayerMoveEvent $ev){
