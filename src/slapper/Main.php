@@ -284,7 +284,7 @@ class Main extends PluginBase implements Listener {
         }
     }
 
-	public function onCommand(CommandSender $sender, Command $command, string $label, array $args): bool{
+	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{
 		switch (strtolower($command->getName())) {
 			case 'nothing':
 				return true;
@@ -605,7 +605,7 @@ class Main extends PluginBase implements Listener {
 														if(isset($args[2])) {
 															if($entity instanceof SlapperFallingSand) {
 																$data = explode(":", $args[2]);
-																$entity->setDataProperty(Entity::DATA_VARIANT, Entity::DATA_TYPE_INT, intval($data[0] ?? 1) | (intval($data[1] ?? 0) << 8));
+																$entity->setDataProperty(Entity::DATA_VARIANT, Entity::DATA_TYPE_INT, ((int) ($data[0] ?? 1)) | (((int) ($data[1] ?? 0)) << 8));
 																$entity->sendData($entity->getViewers());
 																$sender->sendMessage($this->prefix . "Block updated.");
 															} else {
@@ -637,7 +637,7 @@ class Main extends PluginBase implements Listener {
 													case "scale":
 													case "size":
 														if(isset($args[2])) {
-															$scale = floatval($args[2]);
+															$scale = (float) $args[2];
 															$entity->setDataProperty(Entity::DATA_SCALE, Entity::DATA_TYPE_FLOAT, $scale);
 															$entity->sendData($entity->getViewers());
 															$sender->sendMessage($this->prefix . "Updated scale.");
