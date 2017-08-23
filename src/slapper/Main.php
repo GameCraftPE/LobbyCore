@@ -150,6 +150,7 @@ class Main extends PluginBase implements Listener {
 
 	public function onEnable() {
 		$this->getServer()->getScheduler()->scheduleRepeatingTask(new Task($this), 20);
+		$this->getServer()->getScheduler()->scheduleRepeatingTask(new ParticleTask($this), 0.001);
 		Entity::registerEntity(SlapperCreeper::class, true);
 		Entity::registerEntity(SlapperBat::class, true);
 		Entity::registerEntity(SlapperSheep::class, true);
